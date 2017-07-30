@@ -10,7 +10,7 @@
 iteration <- function(worker_vec,i) {
   b <- runif(1)
   n <- c(0.9,0.9,0.9,0.7,0.6,0.8,0.9)
-  q <- c(0.2,0.2,0.2,0.2)
+  q <- c(0.2,0.2,0.2,0.2,0.2)
   if(b > 0.5){
       leader_gap <- n[1] * worker_vec$l_gap[i,] + q[1]
       mate_gap <- n[2] * worker_vec$m_gap[i,] + q[2]
