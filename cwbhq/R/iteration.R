@@ -8,10 +8,10 @@
 
 
 iteration <- function(worker_vec,i) {
-  b <- runif(1)
+  b <- 0.7
   n <- c(0.9,0.9,0.9,0.7,0.6,0.8,0.9)
   q <- c(0.2,0.2,0.2,0.2,0.2)
-  if(b > 0.5){
+  if(b < 0.5){
       leader_gap <- n[1] * worker_vec$l_gap[i,] + q[1]
       mate_gap <- n[2] * worker_vec$m_gap[i,] + q[2]
       mate_th <- n[3] * leader_gap + n[4] * mate_gap * leader_gap + n[5] * mate_gap +q[3]
@@ -19,7 +19,25 @@ iteration <- function(worker_vec,i) {
   }else{
       leader_gap <- worker_vec$l_gap[i,]
       mate_gap <- worker_vec$m_gap[i,]
-      mate_th <- n[7] * worker_vec$m_th[i,] +q[5]
+      # the first method
+      # mate_th <- n[7] * worker_vec$m_th[i,] +q[5]
+      # the second method
+      mate_th <- worker_vec$m_th[i,]
+      mate_th_u <- worker_vec$m_th_u[i,]
+      x <- NULL
+      u <- NULL
+      for(i in 1:length(mate_th)){
+        res_vec <- NULL
+        for(k in 1:length(mate_th)){
+          xu_vec <- uncertain_effect(mate_th[i], mate_th_u[i], mate_th[k], mate_th_u[k])
+          res_vec <- rbind(res_vec,xu_vec)
+        }
+        res <- colMeans(res_vec)
+        x <- c(x, res[1])
+        u <- c(u, res[2])
+      }
+      mate_th <- x
+      mate_th_u <- u
       cwb <- n[6] * mate_th + q[4]
   }
 
@@ -28,6 +46,7 @@ iteration <- function(worker_vec,i) {
   worker_vec$l_gap <- rbind(worker_vec$l_gap, leader_gap)
   worker_vec$m_gap <- rbind(worker_vec$m_gap, mate_gap)
   worker_vec$m_th <- rbind(worker_vec$m_th, mate_th)
+  worker_vec$m_th_u <- rbind(worker_vec$m_th_u, mate_th_u)
   worker_vec$cwb <- rbind(worker_vec$cwb, cwb)
 
   return(worker_vec)
