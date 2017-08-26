@@ -1,11 +1,9 @@
 
 
+worker <- function(team) {
+  workers <- team - 1
+  worker_vec <- sum(workers)
 
-
-
-
-
-worker <- function(worker_vec) {
   # the gap between leader and staff
   leader_gap <- rnorm(worker_vec[1], 0.5, 0.2)
   leader_gap <- attribute_index(leader_gap)

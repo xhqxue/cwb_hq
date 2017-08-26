@@ -3,7 +3,8 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 main <- function(x = 10,ite = 5) {
-  worker_l <- worker(x)
+  workers_team <- team(x)
+  worker_l <- worker(workers_team)
   for(i in 1:ite){
     worker_l <- iteration(worker_l,i)
   }
