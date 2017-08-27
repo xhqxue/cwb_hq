@@ -6,7 +6,7 @@ main <- function(x = 10,ite = 5) {
   workers_team <- team(x)
   worker_l <- worker(workers_team)
   for(i in 1:ite){
-    worker_l <- iteration(worker_l,i)
+    worker_l <- iteration(worker_l, workers_team, i)
   }
   return(worker_l)
 }
