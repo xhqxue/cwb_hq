@@ -1,0 +1,24 @@
+---
+title: "little show"
+author: "hqxue"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+rm(list = ls())
+library(cwbhq)
+n_team <- 10
+n_ite <- 20
+att_list1 <- main(n_team,n_ite)
+cwb <- NULL
+for(i in 1:n_ite+1){
+  cwb[i] <- sum(att_list1$cwb[i,] > 0.5)
+}
+plot(cwb)
+```
+
