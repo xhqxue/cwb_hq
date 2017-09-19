@@ -12,13 +12,81 @@ vignette: >
 ```{r}
 rm(list = ls())
 library(cwbhq)
-n_team <- 10
-n_ite <- 20
+
+n_team <- 200
+n_ite <- 30
 att_list1 <- main(n_team,n_ite)
-cwb <- NULL
+cwb <- att_list1$cwb
+cwb_c <-NULL
+cwb_all<-NULL
+# for(i in 1:n_ite+1){
+#  
+#   cwb_b<- cwb[i,]
+#   cwb_worker<- which(cwb_b>0.5)
+#   cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
+#   cwb_c[i] <-length(cwb_all)
+#   # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
+# }
+# plot(cwb_c[2:n_ite+1])
+
 for(i in 1:n_ite+1){
-  cwb[i] <- sum(att_list1$cwb[i,] > 0.5)
+  cwb_max<- max(cwb[2:n_ite+1])
+  cwb_b<- cwb[i,]/cwb_max
+  cwb_worker<- which(cwb_b>0.5)
+  cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
+  cwb_c[i] <-length(cwb_all)
+  # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
 }
-plot(cwb)
+plot(cwb_c[2:n_ite+1])
+```
+
+
+
+
+
+```{r}
+rm(list = ls())
+library(cwbhq)
+a<-NULL
+for(p in 1:20){
+  n_team <- 200
+  n_ite <- 30
+  att_list1 <- main(n_team,n_ite)
+  cwb <- att_list1$cwb
+  cwb_c <-NULL
+  cwb_all<-NULL
+  # for(i in 1:n_ite+1){
+  #   cwb_max<- max(cwb[i,])
+  #   cwb_b<- cwb[i,]/cwb_max
+  #   cwb_worker<- which(cwb_b>0.5)
+  #   cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
+  #   cwb_c[i] <-length(cwb_all)
+  #   # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
+  # }
+  # # x<-c(1:(n_ite-1))
+  # 
+  # plot(cwb_c[2:n_ite+1])
+  # # fit<-lm(cwb_c[2:n_ite+1]~x)
+  # # abline(fit)
+  
+  
+  for(i in 1:n_ite+1){
+    # cwb_max<- max(cwb[2:n_ite+1])
+    # cwb_b<- cwb[i,]/cwb_max
+    cwb_b<- cwb[i,]
+    cwb_worker<- which(cwb_b>0.5)
+    cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
+    cwb_c[i] <-length(cwb_all)
+    # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
+  }
+  a<-rbind(a,cwb_c)
+}
+# x<-c(1:(n_ite-1))
+d<-colMeans(a)
+plot(d[2:n_ite+1])
+
+
+
+
 ```
 

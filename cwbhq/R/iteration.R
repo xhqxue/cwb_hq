@@ -13,13 +13,21 @@ iteration <- function(worker_vec, workers_team, i) {
   check_team <- 0.5
   R <- 0.5
   # the communication between leaders and get the threaten of some workers,and return x and u
-  mate_th1 <- leader_com(worker_vec,workers_team,i)
-
+  if(runif(1) >= 0.5){
+    mate_th1 <- leader_com_th(worker_vec,workers_team,i)
+    cwb1<- leader_com_cwb(worker_vec,workers_team,-1)
+  }else{
+    mate_th1 <- leader_com_th(worker_vec,workers_team,-1)
+    cwb1 <- leader_com_cwb(worker_vec,workers_team,i)
+  }
   # get interaction between workers
   workers_team <- workers_team - 1
+  cwb <- worker_vec$cwb[i,]
 
   leader_gap <- worker_vec$l_gap[i,]
   leader_gap_u <- worker_vec$l_gap_u[i,]
+  leader_gap <- 0.9 * leader_gap + 0.1 * cwb
+
 
   mate_gap <- worker_vec$m_gap[i,]
   mate_gap_u <- worker_vec$m_gap_u[i,]
@@ -33,11 +41,12 @@ iteration <- function(worker_vec, workers_team, i) {
 
   mate_th_x <- mate_th1$x
   mate_th <- ifelse(mate_th_x == 0, mate_th2, (mate_th2+mate_th_x)/2 )
-  # --------------------------------------------------------------------------------------
   mate_th_u <- ifelse(mate_th_x == 0, mate_th_u, (mate_th_u+mate_th1$x)/2 )
 
+  cwb_u <-worker_vec$cwb_u[i,]
   cwb <- 0.7688 + 0.5002*mate_th-0.1391*leader_gap_xu$x+R
-
+  cwb <- ifelse(cwb1$x == 0, cwb, (cwb1$x+cwb)/2 )
+  cwb_u <- ifelse(cwb1$x == 0, cwb_u, (cwb1$u+cwb_u)/2 )
 
   # b <- 0.7
   # n <- c(0.9,0.9,0.9,0.7,0.6,0.8,0.9)
@@ -84,6 +93,7 @@ iteration <- function(worker_vec, workers_team, i) {
   worker_vec$m_th_u <- rbind(worker_vec$m_th_u, mate_th_u)
 
   worker_vec$cwb <- rbind(worker_vec$cwb, cwb)
+  worker_vec$cwb_u <- rbind(worker_vec$cwb_u, cwb_u)
   #
   return(worker_vec)
 }
