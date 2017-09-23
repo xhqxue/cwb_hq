@@ -9,26 +9,18 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+# 选矩阵中最大的点
 ```{r}
 rm(list = ls())
 library(cwbhq)
 
 n_team <- 200
 n_ite <- 30
+set.seed(194)
 att_list1 <- main(n_team,n_ite)
 cwb <- att_list1$cwb
 cwb_c <-NULL
 cwb_all<-NULL
-# for(i in 1:n_ite+1){
-#  
-#   cwb_b<- cwb[i,]
-#   cwb_worker<- which(cwb_b>0.5)
-#   cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
-#   cwb_c[i] <-length(cwb_all)
-#   # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
-# }
-# plot(cwb_c[2:n_ite+1])
-
 for(i in 1:n_ite+1){
   cwb_max<- max(cwb[2:n_ite+1])
   cwb_b<- cwb[i,]/cwb_max
@@ -40,9 +32,64 @@ for(i in 1:n_ite+1){
 plot(cwb_c[2:n_ite+1])
 ```
 
+# 选本行最大的点
 
+```{r}
+rm(list = ls())
+library(cwbhq)
 
+n_team <- 200
+n_ite <- 30
+set.seed(200)
+att_list1 <- main(n_team,n_ite)
+cwb <- att_list1$cwb
+cwb_c <-NULL
+cwb_all<-NULL
+for(i in 1:n_ite+1){
+  cwb_max<- max(cwb[i])
+  cwb_b<- cwb[i,]/cwb_max
+  cwb_worker<- which(cwb_b>0.5)
+  cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
+  cwb_c[i] <-length(cwb_all)
+  # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
+}
+plot(cwb_c[2:n_ite+1])
+```
 
+# 不改变
+
+```{r}
+rm(list = ls())
+library(cwbhq)
+
+n_team <- 200
+n_ite <- 30
+set.seed(144)
+att_list1 <- main(n_team,n_ite)
+cwb <- att_list1$cwb
+cwb_c <-NULL
+cwb_all<-NULL
+for(i in 1:n_ite+1){
+  cwb_b<- cwb[i,]
+  cwb_worker<- which(cwb_b>1.9)
+  cwb_all <-c(cwb_all,setdiff(cwb_worker,cwb_all))
+  cwb_c[i] <-length(cwb_all)
+  # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
+}
+plot(cwb_c[2:n_ite+1])
+
+a<-rowMeans(cwb)
+plot(a)
+
+leader_gap<-att_list1$l_gap
+mate_gap<-att_list1$m_gap
+mate_th<-att_list1$m_th
+
+b<-rowMeans(leader_gap)
+c<-rowMeans(mate_gap)
+d<-rowMeans(mate_th)
+
+```
 
 ```{r}
 rm(list = ls())

@@ -31,7 +31,6 @@ iteration <- function(worker_vec, workers_team, i) {
 
   mate_gap <- worker_vec$m_gap[i,]
   mate_gap_u <- worker_vec$m_gap_u[i,]
-
   mate_th_u <- worker_vec$m_th_u[i,]
 
   leader_gap_xu <- team_com(leader_gap, leader_gap_u, workers_team)
@@ -81,7 +80,7 @@ iteration <- function(worker_vec, workers_team, i) {
   #     cwb <- n[6] * mate_th + q[4]
   # }
   #
-  cwb <- (cwb - min(cwb))/(max(cwb)-min(cwb))
+  # cwb <- (cwb - min(cwb))/(max(cwb)-min(cwb))
   #
   worker_vec$l_gap <- rbind(worker_vec$l_gap, leader_gap_xu$x)
   worker_vec$l_gap_u <- rbind(worker_vec$l_gap_u, leader_gap_xu$u)
