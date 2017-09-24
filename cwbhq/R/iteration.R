@@ -26,8 +26,8 @@ iteration <- function(worker_vec, workers_team, i) {
 
   leader_gap <- worker_vec$l_gap[i,]
   leader_gap_u <- worker_vec$l_gap_u[i,]
-  leader_gap <- 0.9 * leader_gap + 0.1 * cwb
-
+  # leader_gap <- 0.9 * leader_gap + 0.1 * cwb
+  leader_gap <- leader_gap
 
   mate_gap <- worker_vec$m_gap[i,]
   mate_gap_u <- worker_vec$m_gap_u[i,]
