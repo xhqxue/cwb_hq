@@ -91,6 +91,14 @@ d<-rowMeans(mate_th)
 
 ```
 
+
+
+
+
+
+
+
+
 ```{r}
 rm(list = ls())
 library(cwbhq)

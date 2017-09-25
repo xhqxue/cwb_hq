@@ -4,13 +4,20 @@ worker <- function(team) {
   workers <- team - 1
   worker_vec <- sum(workers)
 
+  team_id <- NULL
+  for(i in 1:length(workers)){
+    id_now <- rep(i,workers[i])
+    team_id <-c(team_id,id_now)
+  }
+
   # the gap between leader and staff
   leader_gap <- rnorm(worker_vec[1], 0.826, 1.02)
   # leader_gap <- attribute_index(leader_gap)
 
 
-  leader_gap_u <- rnorm(worker_vec[1],0.2,0.1)
-  leader_gap_u <- attribute_index(leader_gap_u)
+  leader_gap_u <- rnorm(worker_vec[1],0.5,0.1)
+  leader_gap_u <-ifelse(leader_gap_u > 0, leader_gap_u, leader_gap_u * -1)
+  # leader_gap_u <- attribute_index(leader_gap_u)
   leader_gap_u <- matrix(leader_gap_u, nrow = 1)
 
   # the gap between staff
@@ -18,8 +25,9 @@ worker <- function(team) {
   # mate_gap <- attribute_index(mate_gap)
 
 
-  mate_gap_u <- rnorm(worker_vec[1],0.2,0.1)
-  mate_gap_u <- attribute_index(mate_gap_u)
+  mate_gap_u <- rnorm(worker_vec[1],0.8,0.2)
+  mate_gap_u <-ifelse(mate_gap_u > 0, mate_gap_u, mate_gap_u * -1)
+  # mate_gap_u <- attribute_index(mate_gap_u)
   mate_gap_u <- matrix(mate_gap_u, nrow = 1)
 
   # the threat between mate
@@ -49,6 +57,6 @@ worker <- function(team) {
   mate_gap <- matrix(mate_gap, nrow = 1)
   mate_th <- matrix(mate_th, nrow = 1)
 
-  return(list(l_gap = leader_gap, m_gap = mate_gap, m_th = mate_th, cwb = cwb, cwb_u = cwb_u, l_gap_u = leader_gap_u, m_gap_u = mate_gap_u, m_th_u = mate_th_u))
+  return(list(team_id = team_id, l_gap = leader_gap, m_gap = mate_gap, m_th = mate_th, cwb = cwb, cwb_u = cwb_u, l_gap_u = leader_gap_u, m_gap_u = mate_gap_u, m_th_u = mate_th_u))
 
 }

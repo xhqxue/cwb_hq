@@ -9,6 +9,8 @@ uncertain_effect <- function(x1, u1, x2, u2) {
     x1 <- x1 + miu * ((h / u2) - 1) * (x2 - x1)
     u1 <- u1 + miu * ((h / u2) - 1) * (u2 - u1)
   }
+    # x1 <- x1 + miu * ((h / u2) - 1) * (x2 - x1)
+    # u1 <- u1 + miu * ((h / u2) - 1) * (u2 - u1)
   xu_vec <- c(x1, u1)
   return(xu_vec)
 }

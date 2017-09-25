@@ -33,8 +33,10 @@ iteration <- function(worker_vec, workers_team, i) {
   mate_gap_u <- worker_vec$m_gap_u[i,]
   mate_th_u <- worker_vec$m_th_u[i,]
 
-  leader_gap_xu <- team_com(leader_gap, leader_gap_u, workers_team)
-  mate_gap_xu <- team_com(mate_gap, mate_gap_u, workers_team)
+  team_id <- worker_vec$team_id
+
+  leader_gap_xu <- team_com(leader_gap, leader_gap_u, workers_team, team_id)
+  mate_gap_xu <- team_com(mate_gap, mate_gap_u, workers_team, team_id)
 
   mate_th2 <- 2.8671 + GO_vec[1]*check_team + GO_vec[2]*mate_gap_xu$x + GO_vec[3]*(check_team*mate_gap_xu$x)-0.6184*(leader_gap_xu$x*mate_gap_xu$x)+0.1354*(leader_gap_xu$x*mate_gap_xu$x*check_team)+R
 
