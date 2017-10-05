@@ -26,8 +26,8 @@ iteration <- function(worker_vec, workers_team, i) {
 
   leader_gap <- worker_vec$l_gap[i,]
   leader_gap_u <- worker_vec$l_gap_u[i,]
-  # leader_gap <- 0.9 * leader_gap + 0.1 * cwb
-  leader_gap <- leader_gap
+  leader_gap <- 0.9 * leader_gap + 0.1 * cwb
+  #leader_gap <- leader_gap
 
   mate_gap <- worker_vec$m_gap[i,]
   mate_gap_u <- worker_vec$m_gap_u[i,]
@@ -46,6 +46,7 @@ iteration <- function(worker_vec, workers_team, i) {
 
   cwb_u <-worker_vec$cwb_u[i,]
   cwb <- 0.7688 + 0.5002*mate_th-0.1391*leader_gap_xu$x+R
+  # cwb <- 6 + 0.5002*mate_th-0.1391*leader_gap_xu$x+R
   cwb <- ifelse(cwb1$x == 0, cwb, (cwb1$x+cwb)/2 )
   cwb_u <- ifelse(cwb1$x == 0, cwb_u, (cwb1$u+cwb_u)/2 )
 

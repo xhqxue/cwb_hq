@@ -11,7 +11,8 @@ worker <- function(team) {
   }
 
   # the gap between leader and staff
-  leader_gap <- rnorm(worker_vec[1], 0.826, 1.02)
+  #leader_gap <- rnorm(worker_vec[1], 0.826, 1.02)
+  leader_gap <- runif(worker_vec[1], 0, 1)
   # leader_gap <- attribute_index(leader_gap)
 
 
@@ -21,7 +22,8 @@ worker <- function(team) {
   leader_gap_u <- matrix(leader_gap_u, nrow = 1)
 
   # the gap between staff
-  mate_gap <- rnorm(worker_vec[1], 1.22, 0.521)
+  # mate_gap <- rnorm(worker_vec[1], 1.22, 0.521)
+  mate_gap <- runif(worker_vec[1], 0, 1)
   # mate_gap <- attribute_index(mate_gap)
 
 

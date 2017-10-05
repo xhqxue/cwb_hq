@@ -76,10 +76,10 @@ for(i in 1:n_ite+1){
   cwb_c[i] <-length(cwb_all)
   # cwb_c[i] <- sum(cwb[i,])/length(cwb[i,])
 }
-plot(cwb_c[2:n_ite+1])
+# plot(cwb_c[2:n_ite+1])
 
 a<-rowMeans(cwb)
-plot(a)
+# plot(a)
 
 leader_gap<-att_list1$l_gap
 mate_gap<-att_list1$m_gap
@@ -88,6 +88,13 @@ mate_th<-att_list1$m_th
 b<-rowMeans(leader_gap)
 c<-rowMeans(mate_gap)
 d<-rowMeans(mate_th)
+
+aa<-dim(mate_gap)
+qq <- max(cwb)
+plot(cwb[,1],xlim = c(0,30),ylim = c(0,qq))
+for(i in 2:aa[2]){
+  points(cwb[,i])
+}
 
 ```
 
